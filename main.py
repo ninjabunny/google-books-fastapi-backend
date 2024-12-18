@@ -10,6 +10,20 @@ load_dotenv()
 
 app = FastAPI()
 
+origins = [
+    "http://localhost:3000",  # React dev server
+    "http://127.0.0.1:3000",  # Alternate localhost
+    "https://your-production-domain.com",  # Add your production domain
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Allowed origins
+    allow_credentials=True,  # Send cookies with requests
+    allow_methods=["*"],  # Allow all HTTP methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
+)
+
 # Replace this with your actual Google Books API key
 GOOGLE_BOOKS_API_KEY = os.getenv("GOOGLE_BOOKS_API_KEY")
 GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes"
